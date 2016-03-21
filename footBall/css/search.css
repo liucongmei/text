@@ -1,0 +1,103 @@
+ul,ol{
+	list-style: none;
+}
+a{text-decoration: none;}
+*{margin:0;padding:0;}
+.search{
+	height:33px;
+	border-bottom: 1px solid #d9d9d9;
+	padding:0 5px;
+	background: #fff;
+}
+.search input,.search button{
+	border:none;
+	border:1px solid #aaaaaa;
+	border-radius:3px;
+}
+.search input{
+	height:23px;
+	margin-top:4.5px;
+	width:80%;
+	padding:0;
+}
+.search button{
+	width:15%;
+	background: #0f91c5;
+	color:#fff;
+	font-size: 12px;
+	letter-spacing: 3px;
+}
+.result{
+	width:100%;
+	height:auto;
+	margin-top:5px;
+}
+.result ul{
+	margin:0;
+	padding:0;
+	height:auto;
+}
+.bder{
+	height:69px;
+	border-bottom:1px solid #ddd;
+}
+.res{
+	display:block;
+	background:#fff;
+	height:65px;
+	width:98%;
+	padding:4px 1% 0 ;
+}
+.userInfo{
+	float:left;
+	display:inline-block;
+	width:42px;
+	height:41px;
+	margin-top:7.5px;
+}
+.userInfo .oImg{
+	width:41px;
+	border-radius: 50%;
+	border:1px solid #ddd;
+	height:41px;
+}
+.tit,.miao{
+	float:left;
+	margin:0;
+	width:65%;
+	margin-top:12px;
+	margin-left:10px;
+}
+.tit{
+	font-size:14px;
+	color:#999;
+}
+.miao{
+	color:#ccc;
+	font-size: 12px;
+}
+.guan{
+	display:inline-block;
+	width: 15%;
+    background: #0f91c5;
+    color: #fff;
+    font-size: 12px;
+    letter-spacing: 3px;
+    border: 1px solid #aaaaaa;
+    border-radius: 3px;
+    text-align: center;
+    margin-top:15px;
+    height:25px;
+    line-height:25px;
+}
+.footer .sear{
+	background: url(../img/search.png) no-repeat center 5px;
+	background-size: 15px;
+	color:#0f91c5;
+}
+.footer .index{
+	background: url(../img/home1.png) no-repeat center 5px;
+	background-size: 15px;
+	color:#ccc;
+}
+

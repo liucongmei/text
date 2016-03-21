@@ -1,0 +1,75 @@
+*{
+	margin:0;padding:0;
+}
+.about{
+	margin-top:5px;
+	background:#fff;
+	border-bottom:1px solid #ddd;
+	width:100%;
+	
+}
+.me{
+	height:67px;
+	padding-top:5px;
+	background: #fff;
+}
+.touxiang{
+	display:block;
+	float:left;
+	margin-top:7px;
+	margin-left:3%;
+}
+.Icon{
+	width:42px;
+	height:42px;
+	border:1px solid #ddd;
+	border-radius: 50%;
+}
+.wo,.ou{
+	float:left;
+	margin-top:12px;
+	width:80%;
+	margin-left:3%;
+}
+.wo{
+	font-size: 14px
+	font-weight:900;
+}
+.ou{
+	font-size:12px;
+	color:#ddd;
+}
+.ab-me{
+	width:100%;
+	clear:both;
+	
+	
+}
+.ab-me li{
+	width:32%;
+	display: inline-block;
+	text-align: center;
+	font-size: 12px;
+}
+.now{
+	border-bottom:2px solid #0F91C5;
+	
+	color:#0F91C5;
+}
+
+.footer .my{
+	background: url(../img/wode.png) no-repeat center 5px;
+	background-size: 15px;
+	color:#0f91c5;
+}
+.footer .sear{
+	background: url(../img/search1.png) no-repeat center 5px;
+	background-size: 15px;
+	color:#ccc;
+}
+.footer .index{
+	background: url(../img/home1.png) no-repeat center 5px;
+	background-size: 15px;
+	color:#ccc;
+}
+
