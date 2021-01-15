@@ -9,23 +9,84 @@
   <script>
     // 实现原生ajax
     function ajax(target) {
-      var default = {
-        method: target.method || 'get',
+      var handleErr = function(res) {
+        console.log('err', res)
+      }
+      var options = {
+        method: (target.method || 'get').toUpperCase(),
         url: target.url || window.location.href,
         data: target.data || null,
-        dataType: target.dataType 
+        dataType: target.dataType || 'json',
+        success: target.success,
+        error: target.error || handleErr
       }
-      var handlerRes = function() {
+      var params = formatParams(options.data)
+      console.log('params', params)
+      var xhr = new XMLHttpRequest()
+      // xhr.responseType = "json";
+      // xhr.setRequestHeader("Accept", "application/json");
+      if(options.method === 'GET') {
+        if(params.length > 0) {
+          xhr.open('GET', options.url + '?'+params, true)
+        }else {
+          xhr.open('GET', options.url, true)
+        }
+        
+        xhr.send(null)
+      }else if(options.method === 'POST') {
+        xhr.open('POST', options.url, true)
+        xhr.setRequestHeader('content-type', 'application/json');
+        xhr.send(JSON.stringify(options.data))
       }
       
-      var xhr = new XMLHttpRequest()
-
       xhr.onreadystatechange = function() {
-        if (xhr.readyState == 4 && (xhr.status == 200 || xhr.status == 304)) {
-          
+        if (xhr.readyState == 4) {
+          if((xhr.status >= 200 && xhr.status <= 400 )|| xhr.status == 304) {
+            options.success&&options.success(JSON.parse(xhr.responseText));
+          }else if(xhr.status >= 400) {
+            options.error&&options.error(JSON.parse(xhr.responseText));
+          }
         }
       }
+      // get参数格式化
+      function formatParams(data){
+        var arr = []
+        for(var key in data) {
+          arr.push(encodeURIComponent(key)+"="+encodeURIComponent(data[key]));
+        }
+        return arr.join("&");
+      }
     }
+    ajax({
+      method: 'get',
+      url: 'http://localhost:3000/soft',
+      success: function(res) {
+        console.log('res', res)
+        // console.log('type', typeof res)
+      }
+    })
+    ajax({
+      method: 'get',
+      url: 'http://data_api.test.superljq04.com/api/partner',
+      data: {
+        pageSize: 20,
+        page: 1
+      },
+      success: function(res) {
+        console.log('客商', res)
+      }
+    })
+    ajax({
+      method: 'post',
+      url: 'http://localhost:3000/users/register',
+      data: {
+        username: '是心动丫丫',
+        password: 88888888
+      },
+      success: function(res) {
+        console.log('测试添加', res)
+      }
+    })
   </script>
 </body>
 </html>
