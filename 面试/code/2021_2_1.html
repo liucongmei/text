@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<style>
+  * {
+    margin: 0;
+    padding: 0;
+  }
+  .main {
+    display: flex;
+    height: 100px;
+  }
+  .main .left-img {
+    width: 300px;
+    height: inherit;
+    background-color: red;
+  }
+  .main .right-con {
+    flex: 1;
+    height: inherit;
+    background-color: yellow;
+  }
+
+  .main-2 {
+    height: 100px;
+    margin-top: 10px;
+    width: 900px;
+  }
+  .main-2 .left-img {
+    width: 300px;
+    height: inherit;
+    float: left;
+    background-color: yellow;
+  }
+  .main-2 .right-con {
+    width: 600px;
+    height: inherit;
+    float: left;
+    background-color: lavender;
+  }
+
+  .main-3 {
+    width: 100%;
+    display: table;
+    height: 100px;
+    margin-top: 10px;
+  }
+  .main-3 .left-img {
+    display: table-cell;
+    width: 300px;
+    height: inherit;
+    background-color: lightcoral;
+  }
+
+</style>
+<body>
+  <!--flex布局-->
+  <div class="main">
+    <div class="left-img"></div>
+    <div class="right-con"></div>
+  </div>
+  
+  <!--float 适合宽度已知的-->
+  <div class="main-2">
+    <div class="left-img"></div>
+    <div class="right-con">8888888888888888888888888
+      888888888888888
+      99999999999999999
+    </div>
+  </div>
+  <!--table-->
+  <div class="main-3">
+    <div class="left-img"></div>
+    <div class=""></div>
+  </div>
+</body>
+</html>
