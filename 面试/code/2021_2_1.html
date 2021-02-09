@@ -55,7 +55,27 @@
     height: inherit;
     background-color: lightcoral;
   }
+  .main-3 .right-con {
+    height: inherit;
+    background-color: lightskyblue;
+  }
 
+  .main-4 {
+    width: 100%;
+    margin-top: 10px;
+   
+    clear: both;
+  }
+  .main-4 .left-img {
+    width: 300px;
+    height: 100px;
+    float: left;
+    background-color: mediumblue;
+  }
+  .main-4 .right-con {
+    margin-left: 310px;
+    background-color: mediumorchid;
+  }
 </style>
 <body>
   <!--flex布局-->
@@ -75,7 +95,51 @@
   <!--table-->
   <div class="main-3">
     <div class="left-img"></div>
-    <div class=""></div>
+    <div class="right-con"></div>
+  </div>
+  <!--margin布局 +float -->
+  <div class="main-4">
+    <div class="left-img"></div>
+    <div class="right-con">
+      就只看了你一眼，就已决定是永远，那时候车马慢，一生只够爱一人。
+      我的一生最美好的场景就是遇见你，在人海茫茫中。
+      淋雨一直走。
+      就只看了你一眼，就已决定是永远，那时候车马慢，一生只够爱一人。
+      我的一生最美好的场景就是遇见你，在人海茫茫中。
+      淋雨一直走。
+    </div>
   </div>
 </body>
+<script>
+  function promiseFirst(executor) {
+    let that = this
+    this.status = 'pending'
+    this.value = null
+    this.reason = null
+    this.onSuccessCallback  = []
+    this.onRejectCallback = []
+    function resolve(value) {
+      if(that.status === 'pending') {
+        that.status = 'success'
+        that.value = value
+      }
+    }
+    function reject(value) {
+      if(that.status === 'pending') {
+        that.status = 'error'
+        that.reason = value
+      }
+    }
+    executor(resolve, reject)
+  }
+  promiseFirst.prototype.then = function(onSuccess, onFailed) {
+    onSuccess = typeof onSuccess === 'function'?onSuccess: data => data
+    onFailed = typeof onFailed === 'function' ? onFailed: error => { throw error }
+    if(this.status === 'success') {
+      onSuccess(this.value)
+    }else if(this.status === 'error') {
+      onFailed(this.reason)
+    }
+  }
+</script>
 </html>
