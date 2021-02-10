@@ -122,12 +122,18 @@
       if(that.status === 'pending') {
         that.status = 'success'
         that.value = value
+        that.onSuccessCallback.forEach(item => {
+          item(value)
+        });
       }
     }
     function reject(value) {
       if(that.status === 'pending') {
         that.status = 'error'
         that.reason = value
+        that.onRejectCallback.forEach(item =>{
+          item(value)
+        })
       }
     }
     executor(resolve, reject)
@@ -136,10 +142,18 @@
     onSuccess = typeof onSuccess === 'function'?onSuccess: data => data
     onFailed = typeof onFailed === 'function' ? onFailed: error => { throw error }
     if(this.status === 'success') {
-      onSuccess(this.value)
+      return promiseNext = new promiseFirst((resolve, reject) =>{
+        let result = onSuccess(this.value)
+        getResolveValue(promiseNext, result, resolve, reject)
+      })
+      
     }else if(this.status === 'error') {
       onFailed(this.reason)
+    }else {
+      this.onSuccessCallback.push(onSuccess)
+      this.onRejectCallback.push(onFailed)
     }
   }
+  getResolveValue(promise, res, resolve, reject){}
 </script>
 </html>
