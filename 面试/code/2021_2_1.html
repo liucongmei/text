@@ -154,6 +154,36 @@
       this.onRejectCallback.push(onFailed)
     }
   }
-  getResolveValue(promise, res, resolve, reject){}
+  function getResolveValue(promiseNext, res, resolve, reject) {
+    // 先排除
+    if(promiseNext  === res) {
+      return reject(new TypeError('同一个promise'))
+    }
+    let mark;
+    if((typeof res === 'object' && res != null) || (typeof row === 'function')) {
+      try{
+        let then = res.then
+        if(typeof then === 'function') {
+          then.call(res, function(next) {
+            if(mark) return
+            mark = true
+            getResolveValue(promiseNext, next, resolve, reject)
+          }, function(err) {
+            if(mark) return
+            mark = true
+            reject(err)
+          })
+        }else {
+          resolve(res)
+        }
+      }catch(err){
+        if(mark) return
+        reject(err)
+      }
+    }else {
+      resolve(res)
+    }
+
+  }
 </script>
 </html>
