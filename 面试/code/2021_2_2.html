@@ -6,7 +6,129 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Document</title>
 </head>
+<script>
+  /**
+   * @description: 防抖函数  指在时间触发后n秒执行，如果再次出发，以新的时间为准，取消上次的时间，再次触发
+   * 版本1  基础功能实现
+   * @param 
+     * {
+     *     func: function ,  // 执行的方法
+     *     wait: number, // 延迟执行事件，毫秒为单位
+     * }
+  */
+  function debounce(func, wait) {
+    var timeout;
+    return function() {
+     
+      clearTimeout(timeout)
+      timeout = setTimeout(func, wait)
+    }
+  }
+  /*
+   * 版本2  修复this指向和event 对象
+   * @param 
+     * {
+     *     func: function ,  // 执行的方法
+     *     wait: number, // 延迟执行事件，毫秒为单位
+     * }
+  */
+  function debounce(func, wait) {
+    var timeout;
+    return function() {
+     var context = this
+     var args = arguments;
+     clearTimeout(timeout)
+     timeout = setTimeout(function() {
+      func.apply(context, arguments)
+     }, wait)
+   }
+  }
+
+  /*
+   * 版本3  立即执行，我希望立刻执行函数，然后等到停止触发 n 秒后，才可以重新触发执行 和返回值
+    immediate 为true才有返回值
+   * @param 
+     * {
+     *     func: function ,  // 执行的方法
+     *     wait: number, // 延迟执行事件，毫秒为单位
+     *     immediate: Boolean // 是否立即执行
+     * }
+  */
+  function debounce(func, wait, immediate) {
+    var timeout, result;
+    return function() {
+      if(timeout) clearTimeout(timeout)
+      if(immediate){
+         // 如果已经执行过，不再执行
+         var callNow = !timeout;
+            timeout = setTimeout(function(){
+                timeout = null;
+            }, wait)
+            if (callNow) result = func.apply(context, args)
+
+      } else {
+        var context = this
+        var args = arguments;
+        timeout = setTimeout(function() {
+          func.apply(context, arguments)
+        }, wait)
+      } 
+      return result
+    }
+  }
+
+   /*
+   * 版本4  取消如说我 debounce 的时间间隔是 10 秒钟，immediate 为 true，这样的话，我只有等 10 秒后才能重新触发事件，现在我希望有一个按钮，点击后，取消防抖，这样我再去触发，就可以又立刻执行啦，
+    immediate 为true才有返回值
+   * @param 
+     * {
+     *     func: function ,  // 执行的方法
+     *     wait: number, // 延迟执行事件，毫秒为单位
+     *     immediate: Boolean // 是否立即执行
+     * }
+  */
+  function debounce(func, wait, immediate) {
+    var timeout, result;
+    var debounced = function() {
+      if(timeout) clearTimeout(timeout)
+      if(immediate){
+         // 如果已经执行过，不再执行
+         var callNow = !timeout;
+            timeout = setTimeout(function(){
+                timeout = null;
+            }, wait)
+            if (callNow) result = func.apply(context, args)
+
+      } else {
+        var context = this
+        var args = arguments;
+        timeout = setTimeout(function() {
+          func.apply(context, arguments)
+        }, wait)
+      } 
+      return result
+    }
+    debounced.cancel = function() {
+      clearTimeout(timeout);
+      timeout = null;
+    }
+    return debounced
+  }
+</script>
 <body>
-  
+  <div id="container" style="width: 200px;height: 200px;background-color: red;"></div>
+  <button id="button">取消</button>
+  <script>
+    var count = 1;
+    var box = document.getElementById('container')
+    function getUserAction(e) {
+      box.innerHTML = count++
+    }
+    var setUseAction = debounce(getUserAction, 1000, true)
+    box.onmousemove = setUseAction
+    document.getElementById('button').onclick = function() {
+      setUseAction.cancel()
+    }
+  </script>
 </body>
 </html>
