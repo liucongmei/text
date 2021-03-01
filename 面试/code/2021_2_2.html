@@ -115,6 +115,27 @@
     return debounced
   }
 </script>
+<script>
+  /*编写一个程序将数组扁平化去并除其中重复部分数据，最终得到一个升序且不重复的数组*/
+  var arr = [ [1, 2, 2], [3, 4, 5, 5], [6, 7, 8, 9, [11, 12, [12, 13, [14] ] ] ], 10];
+  var arr2 = []
+  function fn(arr) {
+    for(var i = 0, len = arr.length; i < len; i++) {
+      if(Array.isArray(arr[i])) {
+        fn(arr[i])
+      }else {
+        arr2.push(arr[i])
+      }
+    }
+    return arr2
+  }
+  fn(arr)
+  var arr3 = Array.from(new Set([...arr2]))
+  var arr4 = arr3.sort(function(a, b) {
+    return a > b ? 1: -1
+  })
+  console.log(arr4)
+</script>
 <body>
   <div id="container" style="width: 200px;height: 200px;background-color: red;"></div>
   <button id="button">取消</button>
