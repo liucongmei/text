@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script>
+    /*
+      *改造下面的代码，使之输出0 - 9，写出你能想到的所有解法
+      for (var i = 0; i< 10; i++){
+        setTimeout(() => {
+          console.log(i);
+          }, 1000)
+      }
+    */
+    /*
+      版本一 改变变量的作用域，使用let代替var
+    */
+    for(let i = 0; i< 10; i++) {
+      setTimeout(() => {
+        console.log(i);
+      }, 1000)
+    }
+    /*
+      版本二 传入参数 利用 setTimeout 函数的第三个参数，会作为回调函数的第一个参数传入
+    */
+    for(var i = 0; i < 10; i++) {
+      setTimeout((i) => {
+        console.log(i)
+      }, 1000, i)
+    }
+    /*
+      版本三 立即执行传参
+    */
+    for(var i = 0; i < 10; i++) {
+      (function(i){
+        setTimeout(() => {
+          console.log(i)
+        }, 1000)
+      })(i)
+    }
+    /*
+      版本4 利用try/catch的块级作用域
+    */
+    for (var i = 0; i < 10; i++) {
+      try {
+        throw new Error(i);
+      } catch ({
+        message: i
+      }) {
+        setTimeout(() => {
+          console.log(i);
+        }, 1000)
+      }
+    }
+
+  </script>
+</head>
+<body>
+  
+</body>
+</html>
